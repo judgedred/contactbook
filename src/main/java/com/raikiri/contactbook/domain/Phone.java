@@ -23,4 +23,96 @@ public class Phone
     @ManyToOne
     @JoinColumn(name = "person_id")
         private Person person;
+
+    public Integer getPhoneId()
+    {
+        return phoneId;
+    }
+
+    public void setPhoneId(Integer phoneId)
+    {
+        this.phoneId = phoneId;
+    }
+
+    public String getPhoneType()
+    {
+        return phoneType;
+    }
+
+    public void setPhoneType(String phoneType)
+    {
+        this.phoneType = phoneType;
+    }
+
+    public Long getPhoneNumber()
+    {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(Long phoneNumber)
+    {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public Boolean getDefaultFlag()
+    {
+        return defaultFlag;
+    }
+
+    public void setDefaultFlag(Boolean defaultFlag)
+    {
+        this.defaultFlag = defaultFlag;
+    }
+
+    public Person getPerson()
+    {
+        return person;
+    }
+
+    public void setPerson(Person person)
+    {
+        this.person = person;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if(this == o)
+        {
+            return true;
+        }
+        if(o == null || getClass() != o.getClass())
+        {
+            return false;
+        }
+
+        Phone phone = (Phone) o;
+
+        if(!phoneId.equals(phone.phoneId))
+        {
+            return false;
+        }
+        if(!phoneType.equals(phone.phoneType))
+        {
+            return false;
+        }
+        if(!phoneNumber.equals(phone.phoneNumber))
+        {
+            return false;
+        }
+        if(!defaultFlag.equals(phone.defaultFlag))
+        {
+            return false;
+        }
+        return person.equals(phone.person);
+
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = phoneId.hashCode();
+        result = 31 * result + phoneNumber.hashCode();
+        return result;
+    }
 }

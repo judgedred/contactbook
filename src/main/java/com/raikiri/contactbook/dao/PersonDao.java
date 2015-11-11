@@ -2,7 +2,6 @@ package com.raikiri.contactbook.dao;
 
 
 import com.raikiri.contactbook.domain.Person;
-
 import java.util.List;
 
 public interface PersonDao

@@ -2,13 +2,24 @@ package com.raikiri.contactbook.dao;
 
 import com.raikiri.contactbook.domain.Person;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.Dependent;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 
+@Dependent
 public class PersonDaoImpl implements PersonDao
 {
+    @PersistenceContext
     private EntityManager em;
+
+    @Inject
+    private Person person;
 
     public Person create(Person person) throws DaoException
     {

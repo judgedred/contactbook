@@ -4,7 +4,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.*;
 import java.util.Date;
 
-@ApplicationScoped
 @Entity
 @Table(name = "Person")
 public class Person

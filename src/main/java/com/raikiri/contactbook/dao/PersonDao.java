@@ -2,6 +2,9 @@ package com.raikiri.contactbook.dao;
 
 
 import com.raikiri.contactbook.domain.Person;
+
+import javax.decorator.Decorator;
+import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
 
 public interface PersonDao

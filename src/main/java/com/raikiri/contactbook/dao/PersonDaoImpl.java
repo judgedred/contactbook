@@ -4,6 +4,7 @@ import com.raikiri.contactbook.domain.Person;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -12,15 +13,13 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 
-@Dependent
+@ApplicationScoped
 public class PersonDaoImpl implements PersonDao
 {
     @PersistenceContext
     private EntityManager em;
 
-    @Inject
-    private Person person;
-
+    @Override
     public Person create(Person person) throws DaoException
     {
         try
@@ -37,6 +36,7 @@ public class PersonDaoImpl implements PersonDao
         }
     }
 
+    @Override
     public Person update(Person person) throws DaoException
     {
         try
@@ -52,6 +52,7 @@ public class PersonDaoImpl implements PersonDao
         }
     }
 
+    @Override
     public void delete(Person person) throws DaoException
     {
         try
@@ -67,6 +68,7 @@ public class PersonDaoImpl implements PersonDao
         }
     }
 
+    @Override
     public List<Person> getPersonAll() throws DaoException
     {
        /* try
@@ -82,6 +84,7 @@ public class PersonDaoImpl implements PersonDao
         return null;
     }
 
+    @Override
     public Person getPersonById(int id) throws DaoException
     {
         try
@@ -92,5 +95,10 @@ public class PersonDaoImpl implements PersonDao
         {
             throw new DaoException(e);
         }
+    }
+
+    public PersonDaoImpl()
+    {
+
     }
 }

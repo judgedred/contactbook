@@ -2,6 +2,7 @@ package com.raikiri.contactbook.dao;
 
 import com.raikiri.contactbook.domain.Person;
 
+import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
@@ -10,24 +11,34 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.transaction.UserTransaction;
 import java.util.List;
 
 
-@ApplicationScoped
+@RequestScoped
 public class PersonDaoImpl implements PersonDao
 {
     @PersistenceContext
     private EntityManager em;
+
+    @Resource
+    UserTransaction utx;
 
     @Override
     public Person create(Person person) throws DaoException
     {
         try
         {
-            em.getTransaction().begin();
+            utx.begin();
+            em.joinTransaction();
             em.persist(person);
-            em.getTransaction().commit();
-            em.refresh(person);
+//            utx.commit();
+//            em.getTransaction().commit();
+//            utx.begin();
+//            em.joinTransaction();
+//            em.refresh(person);
+            utx.commit();
             return person;
         }
         catch(Exception e)
@@ -71,7 +82,7 @@ public class PersonDaoImpl implements PersonDao
     @Override
     public List<Person> getPersonAll() throws DaoException
     {
-       /* try
+        try
         {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
             cq.select(cq.from(Person.class));
@@ -80,8 +91,7 @@ public class PersonDaoImpl implements PersonDao
         catch(Exception e)
         {
             throw new DaoException(e);
-        }*/
-        return null;
+        }
     }
 
     @Override

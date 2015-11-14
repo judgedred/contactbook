@@ -3,6 +3,7 @@ package com.raikiri.contactbook.dao;
 import com.raikiri.contactbook.domain.Phone;
 
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
 
@@ -58,7 +59,7 @@ public class PhoneDaoImpl implements PhoneDao
 
     public List<Phone> getPhoneAll() throws DaoException
     {
-        /*try
+        try
         {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
             cq.select(cq.from(Phone.class));
@@ -67,8 +68,7 @@ public class PhoneDaoImpl implements PhoneDao
         catch(Exception e)
         {
             throw new DaoException(e);
-        }*/
-        return null;
+        }
     }
 
     public Phone getPhoneById(int id) throws DaoException

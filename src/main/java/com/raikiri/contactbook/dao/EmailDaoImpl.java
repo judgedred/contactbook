@@ -3,6 +3,7 @@ package com.raikiri.contactbook.dao;
 import com.raikiri.contactbook.domain.Email;
 
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
 
@@ -58,7 +59,7 @@ public class EmailDaoImpl implements EmailDao
 
     public List<Email> getEmailAll() throws DaoException
     {
-        /*try
+        try
         {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
             cq.select(cq.from(Email.class));
@@ -67,8 +68,7 @@ public class EmailDaoImpl implements EmailDao
         catch(Exception e)
         {
             throw new DaoException(e);
-        }*/
-        return null;
+        }
     }
 
     public Email getEmailById(int id) throws DaoException

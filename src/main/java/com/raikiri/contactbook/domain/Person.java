@@ -1,6 +1,5 @@
 package com.raikiri.contactbook.domain;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.*;
 import java.util.Date;
 
@@ -10,7 +9,7 @@ public class Person
 {
     @Id
     @Column(name = "person_id")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer personId;
 
     @Column(name = "person_name")

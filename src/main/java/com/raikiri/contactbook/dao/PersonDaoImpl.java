@@ -31,13 +31,7 @@ public class PersonDaoImpl implements PersonDao
         try
         {
             utx.begin();
-            em.joinTransaction();
             em.persist(person);
-//            utx.commit();
-//            em.getTransaction().commit();
-//            utx.begin();
-//            em.joinTransaction();
-//            em.refresh(person);
             utx.commit();
             return person;
         }
@@ -52,9 +46,9 @@ public class PersonDaoImpl implements PersonDao
     {
         try
         {
-            em.getTransaction().begin();
+            utx.begin();
             em.merge(person);
-            em.getTransaction().commit();
+            utx.commit();
             return em.find(Person.class, person.getPersonId());
         }
         catch(Exception e)
@@ -68,10 +62,10 @@ public class PersonDaoImpl implements PersonDao
     {
         try
         {
-            em.getTransaction().begin();
+            utx.begin();
             Person personToBeRemoved = em.getReference(Person.class, person.getPersonId());
             em.remove(personToBeRemoved);
-            em.getTransaction().commit();
+            utx.commit();
         }
         catch(Exception e)
         {
@@ -105,10 +99,5 @@ public class PersonDaoImpl implements PersonDao
         {
             throw new DaoException(e);
         }
-    }
-
-    public PersonDaoImpl()
-    {
-
     }
 }

@@ -8,11 +8,14 @@ public class Address
 {
     @Id
     @Column(name = "address_id")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer addressId;
 
     @Column(name = "address_value")
     private String addressValue;
+
+    @Column(name = "default_flag")
+    private Boolean defaultFlag;
 
     @ManyToOne
     @JoinColumn(name = "person_id")
@@ -36,6 +39,16 @@ public class Address
     public void setAddressValue(String addressValue)
     {
         this.addressValue = addressValue;
+    }
+
+    public Boolean getDefaultFlag()
+    {
+        return defaultFlag;
+    }
+
+    public void setDefaultFlag(Boolean defaultFlag)
+    {
+        this.defaultFlag = defaultFlag;
     }
 
     public Person getPerson()
@@ -67,6 +80,10 @@ public class Address
             return false;
         }
         if(!addressValue.equals(address.addressValue))
+        {
+            return false;
+        }
+        if(!defaultFlag.equals(address.defaultFlag))
         {
             return false;
         }

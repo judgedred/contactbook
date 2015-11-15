@@ -2,23 +2,30 @@ package com.raikiri.contactbook.dao;
 
 import com.raikiri.contactbook.domain.Email;
 
+import javax.annotation.Resource;
+import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.transaction.UserTransaction;
 import java.util.List;
 
-
+@RequestScoped
 public class EmailDaoImpl implements EmailDao
 {
+    @PersistenceContext
     private EntityManager em;
+
+    @Resource
+    UserTransaction utx;
 
     public Email create(Email email) throws DaoException
     {
         try
         {
-            em.getTransaction().begin();
+            utx.begin();
             em.persist(email);
-            em.getTransaction().commit();
-            em.refresh(email);
+            utx.commit();
             return email;
         }
         catch(Exception e)
@@ -31,9 +38,9 @@ public class EmailDaoImpl implements EmailDao
     {
         try
         {
-            em.getTransaction().begin();
+            utx.begin();
             em.merge(email);
-            em.getTransaction().commit();
+            utx.commit();
             return em.find(Email.class, email.getEmailId());
         }
         catch(Exception e)
@@ -46,10 +53,10 @@ public class EmailDaoImpl implements EmailDao
     {
         try
         {
-            em.getTransaction().begin();
+            utx.begin();
             Email emailToBeRemoved = em.getReference(Email.class, email.getEmailId());
             em.remove(emailToBeRemoved);
-            em.getTransaction().commit();
+            utx.commit();
         }
         catch(Exception e)
         {

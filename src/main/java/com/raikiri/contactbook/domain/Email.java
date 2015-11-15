@@ -8,7 +8,7 @@ public class Email
 {
     @Id
     @Column(name = "email_id")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer emailId;
 
     @Column(name = "email_type")

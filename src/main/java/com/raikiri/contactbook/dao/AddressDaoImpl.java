@@ -2,23 +2,31 @@ package com.raikiri.contactbook.dao;
 
 import com.raikiri.contactbook.domain.Address;
 
+import javax.annotation.Resource;
+import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.transaction.UserTransaction;
 import java.util.List;
 
 
+@RequestScoped
 public class AddressDaoImpl implements AddressDao
 {
+    @PersistenceContext
     private EntityManager em;
+
+    @Resource
+    UserTransaction utx;
 
     public Address create(Address address) throws DaoException
     {
         try
         {
-            em.getTransaction().begin();
+            utx.begin();
             em.persist(address);
-            em.getTransaction().commit();
-            em.refresh(address);
+            utx.commit();
             return address;
         }
         catch(Exception e)
@@ -31,9 +39,9 @@ public class AddressDaoImpl implements AddressDao
     {
         try
         {
-            em.getTransaction().begin();
+            utx.begin();
             em.merge(address);
-            em.getTransaction().commit();
+            utx.commit();
             return em.find(Address.class, address.getAddressId());
         }
         catch(Exception e)
@@ -46,10 +54,10 @@ public class AddressDaoImpl implements AddressDao
     {
         try
         {
-            em.getTransaction().begin();
+            utx.begin();
             Address addressToBeRemoved = em.getReference(Address.class, address.getAddressId());
             em.remove(addressToBeRemoved);
-            em.getTransaction().commit();
+            utx.commit();
         }
         catch(Exception e)
         {

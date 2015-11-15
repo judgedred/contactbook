@@ -2,23 +2,30 @@ package com.raikiri.contactbook.dao;
 
 import com.raikiri.contactbook.domain.Phone;
 
+import javax.annotation.Resource;
+import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.transaction.UserTransaction;
 import java.util.List;
 
-
+@RequestScoped
 public class PhoneDaoImpl implements PhoneDao
 {
+    @PersistenceContext
     private EntityManager em;
+
+    @Resource
+    UserTransaction utx;
 
     public Phone create(Phone phone) throws DaoException
     {
         try
         {
-            em.getTransaction().begin();
+            utx.begin();
             em.persist(phone);
-            em.getTransaction().commit();
-            em.refresh(phone);
+            utx.commit();
             return phone;
         }
         catch(Exception e)
@@ -31,9 +38,9 @@ public class PhoneDaoImpl implements PhoneDao
     {
         try
         {
-            em.getTransaction().begin();
+            utx.begin();
             em.merge(phone);
-            em.getTransaction().commit();
+            utx.commit();
             return em.find(Phone.class, phone.getPhoneId());
         }
         catch(Exception e)
@@ -46,10 +53,10 @@ public class PhoneDaoImpl implements PhoneDao
     {
         try
         {
-            em.getTransaction().begin();
+            utx.begin();
             Phone addressToBeRemoved = em.getReference(Phone.class, phone.getPhoneId());
             em.remove(addressToBeRemoved);
-            em.getTransaction().commit();
+            utx.commit();
         }
         catch(Exception e)
         {

@@ -8,12 +8,13 @@ CREATE TABLE Person (
 CREATE TABLE Address (
   address_id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
   address_value VARCHAR(100) NOT NULL,
+  default_flag BOOLEAN NOT NULL,
   person_id INT NOT NULL,
   PRIMARY KEY (address_id),
   FOREIGN KEY (person_id) REFERENCES Person(person_id));
 CREATE TABLE Phone (
   phone_id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
-  phone_type VARCHAR(15) NOT NULL,
+  phone_type VARCHAR(20) NOT NULL,
   phone_number BIGINT NOT NULL,
   default_flag BOOLEAN NOT NULL,
   person_id INT NOT NULL,
@@ -21,7 +22,7 @@ CREATE TABLE Phone (
   FOREIGN KEY (person_id) REFERENCES Person(person_id));
 CREATE TABLE Email (
   email_id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
-  email_type VARCHAR(15) NOT NULL,
+  email_type VARCHAR(20) NOT NULL,
   email_value VARCHAR(20) NOT NULL,
   default_flag BOOLEAN NOT NULL,
   person_id INT NOT NULL,

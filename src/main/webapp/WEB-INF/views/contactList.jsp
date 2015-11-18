@@ -7,8 +7,8 @@
     <title>ContactList</title>
 </head>
 <body>
-
-    <p>ContactList</p>
+Hi, works!
+    <%--<p>ContactList</p>
     <c:if test="${!empty contactList}">
         <table>
             <c:forEach items="${contactList}" var="contact">
@@ -17,7 +17,7 @@
                 </tr>
             </c:forEach>
         </table>
-    </c:if>
+    </c:if>--%>
 
 </body>
 </html>

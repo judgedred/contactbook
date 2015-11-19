@@ -19,6 +19,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import java.awt.*;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -87,13 +88,16 @@ public class PersonController
     @POST
     @Path("/persistContact")
     @Consumes("application/x-www-form-urlencoded")
-    public Viewable persistContact(@DefaultValue("0") @FormParam("personId") Integer personId,
+    public void persistContact(@DefaultValue("0") @FormParam("personId") Integer personId,
                                    @FormParam("personName") String personName,
                                    @FormParam("personSurname") String personSurname,
                                    @FormParam("personPatronymic") String personPatronymic,
-                                   @FormParam("birthday") Date birthday) throws Exception
+                                   @FormParam("birthday") String birthdayStr,
+                                   @Context HttpServletResponse response ) throws Exception
     {
         Person person = new Person();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date birthday = new Date(format.parse(birthdayStr).getTime());
         Boolean personForUpdate = false;
         if(personId != 0)
         {
@@ -115,9 +119,9 @@ public class PersonController
             {
                 personService.create(person);
             }
-            return new Viewable("/contactlist");
+            response.sendRedirect("contactList");
         }
-        return new Viewable("/contactlist");
+        response.sendRedirect("contactList");
 
 
 

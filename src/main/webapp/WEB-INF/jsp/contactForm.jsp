@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Contact form</title>
@@ -22,7 +23,7 @@ Contact
         </tr>
         <tr>
             <td><label for id="birthday">Дата рождения</label> </td>
-            <td><input type="text" value="${model.person.birthday}" name="birthday" id="birthday"></td>
+            <td><input type="date" value="${model.person.birthday}" name="birthday" id="birthday"></td>
         </tr>
         <tr>
             <td><input type="submit" value="Сохранить"></td>

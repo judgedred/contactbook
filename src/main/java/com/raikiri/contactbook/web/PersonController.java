@@ -1,8 +1,12 @@
 package com.raikiri.contactbook.web;
 
 
+import com.raikiri.contactbook.domain.Address;
 import com.raikiri.contactbook.domain.Person;
+import com.raikiri.contactbook.service.AddressService;
+import com.raikiri.contactbook.service.EmailService;
 import com.raikiri.contactbook.service.PersonService;
+import com.raikiri.contactbook.service.PhoneService;
 import org.glassfish.jersey.server.mvc.Viewable;
 
 import javax.annotation.ManagedBean;
@@ -19,6 +23,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import java.awt.*;
 import java.io.IOException;
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -31,6 +36,15 @@ public class PersonController
 {
     @Inject
     private PersonService personService;
+
+    @Inject
+    private AddressService addressService;
+
+    @Inject
+    private PhoneService phoneService;
+
+    @Inject
+    private EmailService emailService;
 
     @GET
 //    @Path("/")
@@ -63,21 +77,24 @@ public class PersonController
     @Path("/contactAdd")
     public Viewable addContact()
     {
-        Map<String, Object> personModel = new HashMap<>();
-        personModel.put("person", new Person());
-        return new Viewable("/contactForm", personModel);
+        Map<String, Object> formModel = new HashMap<>();
+        formModel.put("person", new Person());
+        formModel.put("address", new Address());
+        return new Viewable("/contactForm", formModel);
     }
 
     @GET
-    @Path("/contactEdit/{personId}")
-    public Viewable editContact(@PathParam("personId") Integer personId) throws Exception
+    @Path("/contactEdit")
+    public Viewable editContact(@QueryParam("personId") Integer personId) throws Exception
     {
         Person person = personService.getPersonById(personId);
         if(person != null)
         {
-            Map<String, Object> personModel = new HashMap<>();
-            personModel.put("person", person);
-            return new Viewable("/contactForm", personModel);
+
+            Map<String, Object> formModel = new HashMap<>();
+            formModel.put("person", person);
+            formModel.put("address", new Address());
+            return new Viewable("/contactForm", formModel);
         }
         else
         {
@@ -85,7 +102,7 @@ public class PersonController
         }
     }
 
-    @POST
+    /*@POST
     @Path("/persistContact")
     @Consumes("application/x-www-form-urlencoded")
     public void persistContact(@DefaultValue("0") @FormParam("personId") Integer personId,
@@ -93,20 +110,23 @@ public class PersonController
                                    @FormParam("personSurname") String personSurname,
                                    @FormParam("personPatronymic") String personPatronymic,
                                    @FormParam("birthday") String birthdayStr,
+                                   @FormParam("addressValue") String addressValue,
+                                   @FormParam("addressDefault") String addreessDefault,
                                    @Context HttpServletResponse response ) throws Exception
     {
         Person person = new Person();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date birthday = new Date(format.parse(birthdayStr).getTime());
+
         Boolean personForUpdate = false;
         if(personId != 0)
         {
             person = personService.getPersonById(personId);
             personForUpdate = true;
         }
-        if(personName != null && personSurname != null
-                && personPatronymic != null && birthday != null)
+        if(!personName.isEmpty() && !personSurname.isEmpty()
+                && !personPatronymic.isEmpty() && !birthdayStr.isEmpty())
         {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date birthday = new Date(format.parse(birthdayStr).getTime());
             person.setPersonName(personName);
             person.setPersonSurname(personSurname);
             person.setPersonPatronymic(personPatronymic);
@@ -118,10 +138,12 @@ public class PersonController
             else
             {
                 personService.create(person);
-            }
-            response.sendRedirect("contactList");
-        }
-        response.sendRedirect("contactList");
+            }*/
+//            return response.sendRedirect("/contactList");
+
+//            return Response.ok().location("c")
+//        }
+//        response.sendRedirect("contactList");
 
 
 
@@ -153,6 +175,36 @@ public class PersonController
         }*/
 
 
+//    }
+
+    @POST
+    @Path("/persistContact")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void persistContact(Person person) throws Exception
+    {
+        Boolean personForUpdate = false;
+        /*if(personId != 0)
+        {
+            person = personService.getPersonById(personId);
+            personForUpdate = true;
+        }*/
+       /* if(person != null)
+        {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date birthday = new Date(format.parse(birthdayStr).getTime());
+            person.setPersonName(personName);
+            person.setPersonSurname(personSurname);
+            person.setPersonPatronymic(personPatronymic);
+            person.setBirthday(birthday);
+            if(personForUpdate)
+            {
+                personService.update(person);
+            }
+            else
+            {
+                personService.create(person);
+            }
+        }*/
     }
 
     /*@GET

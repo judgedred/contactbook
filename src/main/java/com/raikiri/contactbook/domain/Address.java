@@ -15,7 +15,7 @@ public class Address
     private String addressValue;
 
     @Column(name = "default_flag")
-    private Boolean defaultFlag;
+    private Boolean addressDefault;
 
     @ManyToOne
     @JoinColumn(name = "person_id")
@@ -41,14 +41,14 @@ public class Address
         this.addressValue = addressValue;
     }
 
-    public Boolean getDefaultFlag()
+    public Boolean getAddressDefault()
     {
-        return defaultFlag;
+        return addressDefault;
     }
 
-    public void setDefaultFlag(Boolean defaultFlag)
+    public void setAddressDefault(Boolean defaultFlag)
     {
-        this.defaultFlag = defaultFlag;
+        this.addressDefault = defaultFlag;
     }
 
     public Person getPerson()
@@ -83,7 +83,7 @@ public class Address
         {
             return false;
         }
-        if(!defaultFlag.equals(address.defaultFlag))
+        if(!addressDefault.equals(address.addressDefault))
         {
             return false;
         }

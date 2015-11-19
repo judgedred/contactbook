@@ -15,7 +15,7 @@
                     <td>${contact.personName}</td>
                     <td>${contact.personSurname}</td>
                     <td>${contact.personPatronymic}</td>
-                    <td><a href="contactEdit/${contact.personId}">Редактировать</a> </td>
+                    <td><a href="contactEdit?personId=${contact.personId}">Редактировать</a> </td>
                     <td><a href="contactView/${contact.personId}">Просмотр</a> </td>
                 </tr>
             </c:forEach>

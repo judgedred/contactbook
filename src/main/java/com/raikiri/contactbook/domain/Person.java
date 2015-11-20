@@ -1,8 +1,13 @@
 package com.raikiri.contactbook.domain;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "Person")
 public class Person
@@ -112,5 +117,10 @@ public class Person
     public int hashCode()
     {
         return personId.hashCode();
+    }
+
+    public Person()
+    {
+
     }
 }

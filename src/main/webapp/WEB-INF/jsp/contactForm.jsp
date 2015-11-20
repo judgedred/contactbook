@@ -20,10 +20,10 @@
         });
         function send() {
             var person = {
-                personName: $("#personName").val(),
-                personSurname: $("#personSurname").val(),
-                personPatronymic: $("#personPatronymic").val(),
-                birthday: $("#birthday").val(),
+                "personName": $("#personName").val(),
+                "personSurname": $("#personSurname").val(),
+                "personPatronymic": $("#personPatronymic").val(),
+                "birthday": $("#birthday").val()
             }
 
             $('#target').html('sending..');
@@ -31,12 +31,19 @@
             $.ajax({
                 url: 'persistContact',
                 type: 'post',
-                dataType: 'json',
+                contentType: 'application/json',
+//                dataType: 'json',
                 success: function (data) {
                     $('#target').html(data.msg);
                 },
-                data: person
+                data: JSON.stringify({
+                    "personName": $("#personName").val(),
+                    "personSurname": $("#personSurname").val(),
+                    "personPatronymic": $("#personPatronymic").val(),
+                    "birthday": $("#birthday").val()
+                })
             });
+            return false;
         }
     </script>
 </head>

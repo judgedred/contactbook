@@ -1,9 +1,12 @@
 package com.raikiri.contactbook.domain;
 
+import com.raikiri.contactbook.web.DateAdapter;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Date;
 
 @XmlRootElement
@@ -26,7 +29,9 @@ public class Person
     @Column(name = "person_patronymic")
     private String personPatronymic;
 
+    @XmlJavaTypeAdapter(DateAdapter.class)
     @Column(name = "birthday")
+    @Temporal(TemporalType.DATE)
     private Date birthday;
 
     public Integer getPersonId()

@@ -17,7 +17,7 @@ public class ContactApplication extends Application
         HashSet<Class<?>> set = new HashSet<Class<?>>(2);
         set.add(org.glassfish.jersey.moxy.json.MoxyJsonFeature.class);
         set.add(com.raikiri.contactbook.web.JsonMoxyConfigurationContextResolver.class);
-//        set.add(MOXyJsonProvider.class);
+        set.add(MOXyJsonProvider.class);
         set.add(PersonController.class);
         return set;
     }

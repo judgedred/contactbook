@@ -1,6 +1,7 @@
 package com.raikiri.contactbook.web;
 
 
+import org.eclipse.persistence.jaxb.JAXBContextProperties;
 import org.glassfish.jersey.moxy.json.MoxyJsonConfig;
 
 import javax.ws.rs.ext.ContextResolver;
@@ -18,9 +19,9 @@ public class JsonMoxyConfigurationContextResolver implements ContextResolver<Mox
         config = new MoxyJsonConfig()
                 .setNamespacePrefixMapper(namespacePrefixMapper)
                 .setNamespaceSeparator(':')
-//            .setAttributePrefix("")
-//            .setValueWrapper("value")
-//            .property(JAXBContextProperties.JSON_WRAPPER_AS_ARRAY_NAME, true)
+            .setAttributePrefix("")
+            .setValueWrapper("value")
+            .property(JAXBContextProperties.JSON_WRAPPER_AS_ARRAY_NAME, true)
                 .setFormattedOutput(false)
                 .setIncludeRoot(false)
                 .setMarshalEmptyCollections(false);

@@ -75,12 +75,13 @@ public class PersonController
 
     @GET
     @Path("/contactAdd")
+    @Produces(MediaType.TEXT_HTML + "; charset=utf-8")
     public Viewable addContact()
     {
         Map<String, Object> formModel = new HashMap<>();
-        formModel.put("person", new Person());
-        formModel.put("address", new Address());
-        return new Viewable("/contactForm", formModel);
+//        formModel.put("person", new Person());
+//        formModel.put("address", new Address());
+        return new Viewable("/contactForm");
     }
 
     @GET
@@ -179,23 +180,19 @@ public class PersonController
 
     @POST
     @Path("/persistContact")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void persistContact(Person person) throws Exception
+    @Consumes(MediaType.APPLICATION_JSON + "; charset=utf-8")
+    @Produces(MediaType.APPLICATION_JSON + "; charset=utf-8")
+    public ContactWrapper persistContact(ContactWrapper contactWrapper) throws Exception
     {
         Boolean personForUpdate = false;
+
         /*if(personId != 0)
         {
             person = personService.getPersonById(personId);
             personForUpdate = true;
         }*/
-       /* if(person != null)
+        /*if(person != null)
         {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            Date birthday = new Date(format.parse(birthdayStr).getTime());
-            person.setPersonName(personName);
-            person.setPersonSurname(personSurname);
-            person.setPersonPatronymic(personPatronymic);
-            person.setBirthday(birthday);
             if(personForUpdate)
             {
                 personService.update(person);
@@ -205,6 +202,7 @@ public class PersonController
                 personService.create(person);
             }
         }*/
+        return contactWrapper;
     }
 
     /*@GET

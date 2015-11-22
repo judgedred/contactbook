@@ -6,6 +6,7 @@ import com.raikiri.contactbook.domain.Email;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 
 @RequestScoped
@@ -36,5 +37,27 @@ public class EmailServiceImpl implements EmailService
     public Email getEmailById(int id) throws DaoException
     {
         return emailDao.getEmailById(id);
+    }
+
+    @Override
+    public List<Email> getEmailAllById(int personId) throws DaoException
+    {
+        List<Email> emailList = emailDao.getEmailAll();
+        List<Email> filteredEmailList = new ArrayList<>();
+        if(emailList != null)
+        {
+            for(Email e : emailList)
+            {
+                if(e.getPerson().getPersonId() == personId)
+                {
+                    filteredEmailList.add(e);
+                }
+            }
+            return filteredEmailList;
+        }
+        else
+        {
+            return null;
+        }
     }
 }

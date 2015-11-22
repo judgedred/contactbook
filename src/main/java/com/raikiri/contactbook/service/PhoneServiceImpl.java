@@ -6,6 +6,7 @@ import com.raikiri.contactbook.domain.Phone;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 
 @RequestScoped
@@ -36,5 +37,27 @@ public class PhoneServiceImpl implements PhoneService
     public Phone getPhoneById(int id) throws DaoException
     {
         return phoneDao.getPhoneById(id);
+    }
+
+    @Override
+    public List<Phone> getPhoneAllById(int personId) throws DaoException
+    {
+        List<Phone> phoneList = phoneDao.getPhoneAll();
+        List<Phone> filteredPhoneList = new ArrayList<>();
+        if(phoneList != null)
+        {
+            for(Phone p : phoneList)
+            {
+                if(p.getPerson().getPersonId() == personId)
+                {
+                    filteredPhoneList.add(p);
+                }
+            }
+            return filteredPhoneList;
+        }
+        else
+        {
+            return null;
+        }
     }
 }

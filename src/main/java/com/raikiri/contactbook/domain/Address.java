@@ -46,9 +46,9 @@ public class Address
         return addressDefault;
     }
 
-    public void setAddressDefault(Boolean defaultFlag)
+    public void setAddressDefault(Boolean addressDefault)
     {
-        this.addressDefault = defaultFlag;
+        this.addressDefault = addressDefault;
     }
 
     public Person getPerson()

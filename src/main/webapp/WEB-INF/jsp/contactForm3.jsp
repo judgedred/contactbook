@@ -9,6 +9,7 @@
     <%--<script type="text/javascript" src="resources/js/jquery.toObject.js"></script>--%>
     <script type="text/javascript" src="resources/js/form2js.js"></script>
     <script type="text/javascript" src="resources/js/json2.js"></script>
+    <script type="text/javascript" src="resources/js/js2form.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
 
@@ -67,12 +68,43 @@
                 var insertHere = document.getElementById('writeroot3');
                 insertHere.parentNode.insertBefore(newFields, insertHere.lastElementChild);
             }
+
+            /*function populateForm()
+            {*/
+            $.ajax({
+                url: "contactInfo?personId=" + ${model.person.personId} /*$("#personId").val()*/,
+                type: 'get',
+//                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    //             $('#target').html(data.msg);
+                    //                 alert(data);
+//                    var data = document.getElementById('src').value;
+//                    data = JSON.parse(dataS);
+//                document.getElementById('testArea').innerHTML = data.phoneList.length;
+                    if (data != null) {
+                        for (i = 0; i < data.addressList.length; i++) {
+                            addAddress();
+                        }
+                        for (i = 0; i < data.emailList.length; i++) {
+                            addEmail();
+                        }
+                        for (i = 0; i < data.phoneList.length; i++) {
+                            addPhone();
+                        }
+                        js2form(document.getElementById('testForm'), data);
+                    }
+                }
+            });
+
+
+//            }
         });
 
-            function test()
+        function test()
         {
-                var formData = form2js('testForm', '.', true,
-                        function(node)
+            var formData = form2js('testForm', '.', true,
+                    function(node)
                     {
                         if (node.id && node.id.match(/callbackTest/))
                         {
@@ -83,35 +115,40 @@
             return false;
         }
 
-            function send() {
+        function send() {
 
-                var formData = form2js('testForm', '.', true);
+            var formData = form2js('testForm', '.', true);
 
-    //            alert($("#personName").val());
-    //            $('#target').html('sending..');
+            //            alert($("#personName").val());
+            //            $('#target').html('sending..');
 
-                $.ajax({
-                    url: 'persistContact',
-                    type: 'post',
-                    contentType: 'application/json; charset=utf-8',
-                    dataType: 'json',
-                    success: function (data) {
-    //             $('#target').html(data.msg);
-    //                 alert(data);
-                    },
-                    data: JSON.stringify(formData)
-                });
-                return false;
-            }
+            $.ajax({
+                url: 'persistContact',
+                type: 'post',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    //             $('#target').html(data.msg);
+                    //                 alert(data);
+                },
+                data: JSON.stringify(formData)
+            });
+            return false;
+        }
+
+
+
+
+
     </script>
 </head>
 <body>
 
 Contact
 
-<form id="testForm" action="" onsubmit="return send()">
+<form id="testForm" action="" onsubmit="return populateForm()">
     <table>
-        <tr><td><input type="text" value="" name="person.personId" id="person.personId"></td></tr>
+        <tr><td><input type="text" value="${model.person.personId}" name="person.personId" id="personId"></td></tr>
         <tr>
             <td>Имя</td>
             <td><input type="text" value="" name="person.personName" id="person.personName"></td>
@@ -122,11 +159,11 @@ Contact
         </tr>
         <tr>
             <td>Отчество</td>
-            <td><input type="text" value="${model.person.personPatronymic}" name="person.personPatronymic" id="person.personPatronymic"></td>
+            <td><input type="text" value="" name="person.personPatronymic" id="person.personPatronymic"></td>
         </tr>
         <tr>
             <td>Дата рождения</td>
-            <td><input type="date" value="${model.person.birthday}" name="person.birthday" id="person.birthday"></td>
+            <td><input type="date" value="" name="person.birthday" id="person.birthday"></td>
         </tr>
 
         <tr>
@@ -201,6 +238,17 @@ Contact
 
 <pre><code id="testArea">
 </code></pre>
+
+<div>
+			<textarea id="src" cols="70" rows="20">
+{"addressList":[{"addressDefault":true,"addressId":1,"addressValue":"userAddress","person":
+{"personId":1,"personName":"user","personSurname":"user","personPatronymic":"user","birthday":"2015-11-11"}}],"emailList":
+[{"emailDefault":true,"emailId":1,"emailType":"work","emailValue":"userEmail","person":
+{"personId":1,"personName":"user","personSurname":"user","personPatronymic":"user","birthday":"2015-11-11"}}],"person":
+{"personId":1,"personName":"user","personSurname":"user","personPatronymic":"user","birthday":"2015-11-11"},"phoneList":
+[{"person":{"personId":1,"personName":"user","personSurname":"user","personPatronymic":"user","birthday":"2015-11-11"},"phoneDefault":true,"phoneId":1,"phoneNumber":4443232,"phoneType":"work"}]}
+                </textarea>
+</div>
 
 </body>
 </html>

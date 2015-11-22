@@ -18,7 +18,7 @@ public class Email
     private String emailValue;
 
     @Column(name = "default_flag")
-    private Boolean defaultFlag;
+    private Boolean emailDefault;
 
     @ManyToOne
     @JoinColumn(name = "person_id")
@@ -54,14 +54,14 @@ public class Email
         this.emailValue = emailValue;
     }
 
-    public Boolean getDefaultFlag()
+    public Boolean getEmailDefault()
     {
-        return defaultFlag;
+        return emailDefault;
     }
 
-    public void setDefaultFlag(Boolean defaultFlag)
+    public void setEmailDefault(Boolean emailDefault)
     {
-        this.defaultFlag = defaultFlag;
+        this.emailDefault = emailDefault;
     }
 
     public Person getPerson()
@@ -100,7 +100,7 @@ public class Email
         {
             return false;
         }
-        if(!defaultFlag.equals(email.defaultFlag))
+        if(!emailDefault.equals(email.emailDefault))
         {
             return false;
         }

@@ -11,4 +11,5 @@ public interface EmailService
     public Email update(Email email) throws DaoException;
     public List<Email> getEmailAll() throws DaoException;
     public Email getEmailById(int id) throws DaoException;
+    public List<Email> getEmailAllById(int personId) throws DaoException;
 }

@@ -18,7 +18,7 @@ public class Phone
     private Long phoneNumber;
 
     @Column(name = "default_flag")
-    private Boolean defaultFlag;
+    private Boolean phoneDefault;
 
     @ManyToOne
     @JoinColumn(name = "person_id")
@@ -54,14 +54,14 @@ public class Phone
         this.phoneNumber = phoneNumber;
     }
 
-    public Boolean getDefaultFlag()
+    public Boolean getPhoneDefault()
     {
-        return defaultFlag;
+        return phoneDefault;
     }
 
-    public void setDefaultFlag(Boolean defaultFlag)
+    public void setPhoneDefault(Boolean phoneDefault)
     {
-        this.defaultFlag = defaultFlag;
+        this.phoneDefault = phoneDefault;
     }
 
     public Person getPerson()
@@ -100,7 +100,7 @@ public class Phone
         {
             return false;
         }
-        if(!defaultFlag.equals(phone.defaultFlag))
+        if(!phoneDefault.equals(phone.phoneDefault))
         {
             return false;
         }

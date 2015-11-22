@@ -2,7 +2,9 @@ package com.raikiri.contactbook.web;
 
 
 import com.raikiri.contactbook.domain.Address;
+import com.raikiri.contactbook.domain.Email;
 import com.raikiri.contactbook.domain.Person;
+import com.raikiri.contactbook.domain.Phone;
 import com.raikiri.contactbook.service.AddressService;
 import com.raikiri.contactbook.service.EmailService;
 import com.raikiri.contactbook.service.PersonService;
@@ -81,26 +83,69 @@ public class PersonController
         Map<String, Object> formModel = new HashMap<>();
 //        formModel.put("person", new Person());
 //        formModel.put("address", new Address());
-        return new Viewable("/contactForm");
+        return new Viewable("/contactForm2");
     }
 
     @GET
     @Path("/contactEdit")
     public Viewable editContact(@QueryParam("personId") Integer personId) throws Exception
     {
-        Person person = personService.getPersonById(personId);
-        if(person != null)
+        if(personId != null)
         {
+            Person person = personService.getPersonById(personId);
+            if(person != null)
+            {
 
-            Map<String, Object> formModel = new HashMap<>();
-            formModel.put("person", person);
-            formModel.put("address", new Address());
-            return new Viewable("/contactForm", formModel);
+                Map<String, Object> formModel = new HashMap<>();
+                formModel.put("person", person);
+//            formModel.put("address", new Address());
+                return new Viewable("/contactForm3", formModel);
+            }
         }
-        else
+        return null;
+    }
+
+    @GET
+    @Path("/contactView")
+    public Viewable viewContact(@QueryParam("personId") Integer personId) throws Exception
+    {
+        if(personId != null)
         {
-            return null;
+            Person person = personService.getPersonById(personId);
+            if(person != null)
+            {
+
+                Map<String, Object> formModel = new HashMap<>();
+                formModel.put("person", person);
+//            formModel.put("address", new Address());
+                return new Viewable("/contactInfo", formModel);
+            }
         }
+        return null;
+    }
+
+    @GET
+    @Path("/contactInfo")
+    @Produces(MediaType.APPLICATION_JSON + "; charset=utf-8")
+    public ContactWrapper getContactInfo(@QueryParam("personId") Integer personId) throws Exception
+    {
+        if(personId != null)
+        {
+            Person person = personService.getPersonById(personId);
+            if(person != null)
+            {
+                List<Address> addressList = addressService.getAddressAllById(personId);
+                List<Email> emailList = emailService.getEmailAllById(personId);
+                List<Phone> phoneList = phoneService.getPhoneAllById(personId);
+                ContactWrapper contactWrapper = new ContactWrapper();
+                contactWrapper.setPerson(person);
+                contactWrapper.setAddressList(addressList);
+                contactWrapper.setEmailList(emailList);
+                contactWrapper.setPhoneList(phoneList);
+                return contactWrapper;
+            }
+        }
+        return null;
     }
 
     /*@POST

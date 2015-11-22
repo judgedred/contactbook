@@ -19,19 +19,29 @@
                                 "<td>" + data.person.personPatronymic + "</td>" +
                                 "<td>" + data.person.birthday + "</td>";
                         $("#personInfo").append(personHTML);
-                     /*$("#contactInfo").append("<tr>");
-                     $("#contactInfo").append("<td>" + data.person.personName + "</td>");
-                     $("#contactInfo").append("<td>" + data.person.personSurname + "</td>");
-                     $("#contactInfo").append("<td>" + data.person.personPatronymic + "</td>");
-                     $("#contactInfo").append("<td>" + data.person.birthday + "</td>");
-                     $("#contactInfo").append("</tr>");*/
 
-                        var addressHTML = '';
+                        var addressHTML = "<tr><td>Адрес</td><td>По умолчанию</td></tr>";
                         $.each(data.addressList, function (i, item) {
-                            addressHTML += '<tr><td>' + item.addressValue + '</td><td>'
-                                    + item.addressDefault + '</td><td>' + '</td><tr>';
+                            addressHTML += "<tr><td>" + item.addressValue + "</td><td>"
+                                    + item.addressDefault + "</td></tr>";
                         });
                         $('#addressInfo').append(addressHTML);
+
+                        var emailHTML = "<tr><td>Тип</td><td>Email</td><td>По умолчанию</td></tr>";
+                        $.each(data.emailList, function (i, item) {
+                            emailHTML += "<tr><td>" + item.emailType + "</td><td>"
+                                    + item.emailValue + "</td><td>"
+                                    + item.emailDefault + "</td></tr>";
+                        });
+                        $('#emailInfo').append(emailHTML);
+
+                        var phoneHTML = "<tr><td>Тип</td><td>Номер</td><td>По умолчанию</td></tr>";
+                        $.each(data.phoneList, function (i, item) {
+                            phoneHTML += "<tr><td>" + item.phoneType + "</td><td>"
+                                    + item.phoneNumber + "</td><td>"
+                                    + item.phoneDefault + "</td></tr>";
+                        });
+                        $('#phoneInfo').append(phoneHTML);
                     }
                 }
             })
@@ -41,12 +51,9 @@
 </head>
 <body>
 Contact
-<table border="1" id="personInfo">
-
-</table>
-<table border="1" id="addressInfo">
-
-</table>
-<%--<div id="contactInfo"></div>--%>
+<table border="1" id="personInfo"></table>
+<table border="1" id="addressInfo"></table>
+<table border="1" id="emailInfo"></table>
+<table border="1" id="phoneInfo"></table>
 </body>
 </html>

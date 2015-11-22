@@ -60,4 +60,26 @@ public class AddressServiceImpl implements AddressService
             return null;
         }
     }
+
+    @Override
+    public boolean addressValidate(List<Address> addressList)
+    {
+        int addressDefaultCount = 0;
+        for(Address a : addressList)
+        {
+            if(a.getAddressValue() == null)
+            {
+                return false;
+            }
+            if(a.getAddressDefault())
+            {
+                addressDefaultCount++;
+            }
+        }
+        if(addressDefaultCount != 1)
+        {
+            return false;
+        }
+        return true;
+    }
 }

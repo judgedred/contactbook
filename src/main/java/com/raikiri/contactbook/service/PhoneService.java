@@ -13,4 +13,5 @@ public interface PhoneService
     public List<Phone> getPhoneAll() throws DaoException;
     public Phone getPhoneById(int id) throws DaoException;
     public List<Phone> getPhoneAllById(int personId) throws DaoException;
+    public boolean phoneValidate(List<Phone> phoneList);
 }

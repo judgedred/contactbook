@@ -60,4 +60,26 @@ public class PhoneServiceImpl implements PhoneService
             return null;
         }
     }
+
+    @Override
+    public boolean phoneValidate(List<Phone> phoneList)
+    {
+        int phoneDefaultCount = 0;
+        for(Phone p : phoneList)
+        {
+            if(p.getPhoneType() == null || p.getPhoneNumber() == null)
+            {
+                return false;
+            }
+            if(p.getPhoneDefault())
+            {
+                phoneDefaultCount++;
+            }
+        }
+        if(phoneDefaultCount != 1)
+        {
+            return false;
+        }
+        return true;
+    }
 }

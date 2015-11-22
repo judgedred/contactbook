@@ -13,4 +13,5 @@ public interface AddressService
     public List<Address> getAddressAll() throws DaoException;
     public Address getAddressById(int id) throws DaoException;
     public List<Address> getAddressAllById(int personId) throws DaoException;
+    public boolean addressValidate(List<Address> addressList);
 }

@@ -77,13 +77,12 @@ public class PersonController
 
     @GET
     @Path("/contactAdd")
-    @Produces(MediaType.TEXT_HTML + "; charset=utf-8")
     public Viewable addContact()
     {
         Map<String, Object> formModel = new HashMap<>();
 //        formModel.put("person", new Person());
 //        formModel.put("address", new Address());
-        return new Viewable("/contactForm2");
+        return new Viewable("/contactForm3");
     }
 
     @GET
@@ -99,10 +98,10 @@ public class PersonController
                 Map<String, Object> formModel = new HashMap<>();
                 formModel.put("person", person);
 //            formModel.put("address", new Address());
-                return new Viewable("/contactForm3", formModel);
+                return new Viewable("/contactForm", formModel);
             }
         }
-        return null;
+        return null;                                                    // NullPointer. возвращать respone.notFound?
     }
 
     @GET
@@ -229,25 +228,155 @@ public class PersonController
     @Produces(MediaType.APPLICATION_JSON + "; charset=utf-8")
     public ContactWrapper persistContact(ContactWrapper contactWrapper) throws Exception
     {
-        Boolean personForUpdate = false;
+        if(contactWrapper != null)
+        {
+            Boolean personForUpdate = false;
+            Person person = contactWrapper.getPerson();
+            List<Address> addressList = contactWrapper.getAddressList();
+            List<Email> emailList = contactWrapper.getEmailList();
+            List<Phone> phoneList = contactWrapper.getPhoneList();
+            if(person != null && person.getPersonName() != null && person.getPersonSurname() != null
+                    && person.getPersonPatronymic() != null && person.getBirthday() != null)
+            {
+                if(addressList != null)
+                {
+                    if(!addressService.addressValidate(addressList))
+                    {
+                        return null;
+                    }
+                }
+                if(emailList != null)
+                {
+                    if(!emailService.emailValidate(emailList))
+                    {
+                        return null;
+                    }
+                }
+                if(phoneList != null)
+                {
+                    if(!phoneService.phoneValidate(phoneList))
+                    {
+                        return null;
+                    }
+                }
 
-        /*if(personId != 0)
-        {
-            person = personService.getPersonById(personId);
-            personForUpdate = true;
-        }*/
-        /*if(person != null)
-        {
-            if(personForUpdate)
-            {
-                personService.update(person);
+                if(person.getPersonId() != null)
+                {
+                    personForUpdate = true;
+                }
+
+                if(personForUpdate)
+                {
+                    Person personUpdated = personService.update(person);
+                    if(addressList != null)
+                    {
+                        List<Address> addressPersonList = addressService.getAddressAllById(personUpdated.getPersonId());
+                        for(Address a : addressList)
+                        {
+                            boolean addressUpdated = false;
+                            for(Address ad : addressPersonList)
+                            {
+                                ad.setAddressValue(a.getAddressValue());
+                                ad.setAddressDefault(a.getAddressDefault());
+                                addressService.update(ad);
+                                addressPersonList.remove(ad);
+                                addressUpdated = true;
+                                break;
+                            }
+                            if(!addressUpdated)
+                            {
+                                a.setPerson(personUpdated);
+                                addressService.create(a);
+                            }
+                        }
+                    }
+                    if(emailList != null)
+                    {
+                        List<Email> emailPersonList = emailService.getEmailAllById(personUpdated.getPersonId());
+                        for(Email e : emailList)
+                        {
+                            boolean emailUpdated = false;
+                            for(Email em : emailPersonList)
+                            {
+                                em.setEmailType(e.getEmailType());
+                                em.setEmailValue(e.getEmailValue());
+                                em.setEmailDefault(e.getEmailDefault());
+                                emailService.update(em);
+                                emailPersonList.remove(em);
+                                emailUpdated = true;
+                                break;
+                            }
+                            if(!emailUpdated)
+                            {
+                                e.setPerson(personUpdated);
+                                emailService.create(e);
+                            }
+                        }
+                    }
+                    if(phoneList != null)
+                    {
+                        List<Phone> phonePersonList = phoneService.getPhoneAllById(personUpdated.getPersonId());
+                        for(Phone p : phoneList)
+                        {
+                            boolean phoneUpdated = false;
+                            for(Phone ph : phonePersonList)
+                            {
+                                ph.setPhoneType(p.getPhoneType());
+                                ph.setPhoneNumber(p.getPhoneNumber());
+                                ph.setPhoneDefault(p.getPhoneDefault());
+                                phoneService.update(ph);
+                                phonePersonList.remove(ph);
+                                phoneUpdated = true;
+                                break;
+                            }
+                            if(!phoneUpdated)
+                            {
+                                p.setPerson(personUpdated);
+                                phoneService.create(p);
+                            }
+                        }
+                    }
+                    contactWrapper.setPerson(personUpdated);
+                    contactWrapper.setAddressList(addressService.getAddressAllById(personUpdated.getPersonId()));
+                    contactWrapper.setEmailList(emailService.getEmailAllById(personUpdated.getPersonId()));
+                    contactWrapper.setPhoneList(phoneService.getPhoneAllById(personUpdated.getPersonId()));
+                }
+                else
+                {
+                    Person personCreated = personService.create(person);
+                    if(addressList != null)
+                    {
+                        for(Address a : addressList)
+                        {
+                            a.setPerson(personCreated);
+                            addressService.create(a);
+                        }
+                    }
+                    if(emailList != null)
+                    {
+                        for(Email e : emailList)
+                        {
+                            e.setPerson(personCreated);
+                            emailService.create(e);
+                        }
+                    }
+                    if(phoneList != null)
+                    {
+                        for(Phone p : phoneList)
+                        {
+                            p.setPerson(personCreated);
+                            phoneService.create(p);
+                        }
+                    }
+                    contactWrapper.setPerson(personCreated);
+                    contactWrapper.setAddressList(addressService.getAddressAllById(personCreated.getPersonId()));
+                    contactWrapper.setEmailList(emailService.getEmailAllById(personCreated.getPersonId()));
+                    contactWrapper.setPhoneList(phoneService.getPhoneAllById(personCreated.getPersonId()));
+                }
+                return contactWrapper;
             }
-            else
-            {
-                personService.create(person);
-            }
-        }*/
-        return contactWrapper;
+        }
+        return null;
     }
 
     /*@GET

@@ -60,4 +60,26 @@ public class EmailServiceImpl implements EmailService
             return null;
         }
     }
+
+    @Override
+    public boolean emailValidate(List<Email> emailList)
+    {
+        int emailDefaultCount = 0;
+        for(Email e : emailList)
+        {
+            if(e.getEmailType() == null || e.getEmailValue() == null)
+            {
+                return false;
+            }
+            if(e.getEmailDefault())
+            {
+                emailDefaultCount++;
+            }
+        }
+        if(emailDefaultCount != 1)
+        {
+            return false;
+        }
+        return true;
+    }
 }

@@ -34,19 +34,6 @@ public class ContactController
     private EmailService emailService;
 
     @GET
-    @Produces("text/plain")
-    public String test() throws Exception
-    {
-//        List<Person> contactList = personService.getPersonAll();
-//        return "Hello";
-//        return new Viewable("index.html");
-//        String output = "Jersey say : Hi! " ;
-        return "Hello, работает!";
-//        return Response.ok().entity(new Viewable("index.html")).build();
-//        return Response.status(200).entity(output).build();
-    }
-
-    @GET
     @Path("/contactList")
     @Produces("text/html;charset=utf-8")
     public Viewable viewContactList() throws Exception

@@ -10,17 +10,7 @@ import com.raikiri.contactbook.service.PersonService;
 import com.raikiri.contactbook.service.PersonServiceImpl;
 import com.raikiri.contactbook.web.ContactWrapper;
 import com.raikiri.contactbook.web.ContactWrapperDefault;
-import com.raikiri.contactbook.web.DateAdapter;
 import com.sun.jersey.api.client.*;
-import com.sun.jersey.api.client.config.ClientConfig;
-import com.sun.jersey.api.client.filter.Filterable;
-import com.sun.jersey.core.spi.component.ComponentProviderFactory;
-import com.sun.jersey.core.spi.component.ioc.IoCComponentProcessorFactory;
-import com.sun.jersey.core.spi.component.ioc.IoCComponentProviderFactory;
-import com.sun.jersey.core.util.FeaturesAndProperties;
-import com.sun.jersey.core.util.LazyVal;
-import com.sun.jersey.spi.inject.Errors;
-import jdk.internal.org.objectweb.asm.ClassWriter;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
@@ -47,21 +37,13 @@ public class ContactControllerTest
     @Deployment
     public static Archive<?> createDeployment()
     {
-        /*File[] libs = Maven.resolver()
-                .loadPomFromFile("pom.xml").resolve("org.glassfish.jersey.core:jersey-client")
-                .withTransitivity().as(File.class);*/
-
         return ShrinkWrap.create(WebArchive.class, "test.war")
-                .addClasses(PersonDaoImpl.class, DaoException.class, PersonDao.class, Person.class, Client.class,
-                        ClientHandler.class, PersonService.class, WebResource.class, ClientResponse.class, ObjectMapper.class,
-                        ContactWrapper.class, RequestBuilder.class, UniformInterface.class, Filterable.class,
-                        PersonServiceImpl.class, Errors.class, ClientConfig.class, FeaturesAndProperties.class,
-                        ContactWrapperDefault.class, Address.class, Email.class, Phone.class, DateAdapter.class,
-                        LazyVal.class, ClassWriter.class, IoCComponentProviderFactory.class, ComponentProviderFactory.class,
-                        IoCComponentProcessorFactory.class)
                 .addAsLibraries(Maven.resolver().loadPomFromFile("pom.xml")
                         .importDependencies(ScopeType.TEST, ScopeType.PROVIDED, ScopeType.COMPILE, ScopeType.RUNTIME, ScopeType.IMPORT, ScopeType.SYSTEM)
-                        .resolve().withTransitivity().asFile())
+                        .resolve().withTransitivity().as(File.class))
+                .addClasses(PersonDaoImpl.class, DaoException.class, PersonDao.class, Person.class,
+                        PersonService.class, PersonServiceImpl.class, ContactWrapperDefault.class,
+                        ContactWrapper.class, Address.class, Email.class, Phone.class)
                 .addAsResource("test-persistence.xml", "META-INF/persistence.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
     }

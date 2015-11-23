@@ -1,7 +1,6 @@
 package com.raikiri.contactbook.dao;
 
 import com.raikiri.contactbook.domain.Phone;
-
 import javax.annotation.Resource;
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;

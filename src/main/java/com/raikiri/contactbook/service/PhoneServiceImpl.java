@@ -3,7 +3,6 @@ package com.raikiri.contactbook.service;
 import com.raikiri.contactbook.dao.DaoException;
 import com.raikiri.contactbook.dao.PhoneDao;
 import com.raikiri.contactbook.domain.Phone;
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -81,5 +80,22 @@ public class PhoneServiceImpl implements PhoneService
             return false;
         }
         return true;
+    }
+
+    @Override
+    public Phone getPhoneDefault(int personId) throws DaoException
+    {
+        List<Phone> phoneList = phoneDao.getPhoneAll();
+        if(phoneList != null)
+        {
+            for(Phone p : phoneList)
+            {
+                if(p.getPerson().getPersonId() == personId && p.getPhoneDefault())
+                {
+                    return p;
+                }
+            }
+        }
+        return null;
     }
 }

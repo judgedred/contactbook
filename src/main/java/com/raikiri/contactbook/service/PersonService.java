@@ -3,7 +3,6 @@ package com.raikiri.contactbook.service;
 
 import com.raikiri.contactbook.dao.DaoException;
 import com.raikiri.contactbook.domain.Person;
-
 import java.util.List;
 
 public interface PersonService

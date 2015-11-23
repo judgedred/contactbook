@@ -3,7 +3,6 @@ package com.raikiri.contactbook.service;
 import com.raikiri.contactbook.dao.DaoException;
 import com.raikiri.contactbook.dao.EmailDao;
 import com.raikiri.contactbook.domain.Email;
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -81,5 +80,22 @@ public class EmailServiceImpl implements EmailService
             return false;
         }
         return true;
+    }
+
+    @Override
+    public Email getEmailDefault(int personId) throws DaoException
+    {
+        List<Email> emailList = emailDao.getEmailAll();
+        if(emailList != null)
+        {
+            for(Email e : emailList)
+            {
+                if(e.getPerson().getPersonId() == personId && e.getEmailDefault())
+                {
+                    return e;
+                }
+            }
+        }
+        return null;
     }
 }

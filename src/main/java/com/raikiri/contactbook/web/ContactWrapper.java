@@ -5,10 +5,6 @@ import com.raikiri.contactbook.domain.Address;
 import com.raikiri.contactbook.domain.Email;
 import com.raikiri.contactbook.domain.Person;
 import com.raikiri.contactbook.domain.Phone;
-import com.raikiri.contactbook.service.AddressService;
-import com.raikiri.contactbook.service.PersonService;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 import java.util.List;
 
 

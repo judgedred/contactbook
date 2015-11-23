@@ -5,6 +5,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Contact form</title>
+    <link rel="stylesheet" href="resources/css/styleForm.css"/>
     <script type="text/javascript" src="resources/js/jquery-2.1.4.js"></script>
     <script type="text/javascript" src="resources/js/form2js.js"></script>
     <script type="text/javascript" src="resources/js/json2.js"></script>
@@ -16,9 +17,9 @@
             var counterE = -1;
             var counterP = -1;
 
-            document.getElementById('addAddress').onclick = addAddress;
-            document.getElementById('addEmail').onclick = addEmail;
-            document.getElementById('addPhone').onclick = addPhone;
+            document.getElementById("addAddress").onclick = addAddress;
+            document.getElementById("addEmail").onclick = addEmail;
+            document.getElementById("addPhone").onclick = addPhone;
 
             function addAddress() {
                 counterA++;
@@ -33,7 +34,7 @@
                     newField[i].id = newField[i].name;
                 }
                 var insertHere = document.getElementById("writeroot");
-                insertHere.parentNode.insertBefore(newFields, insertHere.lastElementChild);
+                insertHere.parentNode.insertBefore(newFields, insertHere);
             }
 
             function addEmail() {
@@ -49,7 +50,7 @@
                     newField[i].id = newField[i].name;
                 }
                 var insertHere = document.getElementById("writeroot2");
-                insertHere.parentNode.insertBefore(newFields, insertHere.lastElementChild);
+                insertHere.parentNode.insertBefore(newFields, insertHere);
             }
 
             function addPhone() {
@@ -65,7 +66,7 @@
                     newField[i].id = newField[i].name;
                 }
                 var insertHere = document.getElementById("writeroot3");
-                insertHere.parentNode.insertBefore(newFields, insertHere.lastElementChild);
+                insertHere.parentNode.insertBefore(newFields, insertHere);
             }
 
             $.ajax({
@@ -116,7 +117,8 @@
 </head>
 <body>
 
-Contact
+<a href="contactList">К списку</a><br/><br/>
+
 
 <form id="contactForm" action="" onsubmit="return send()">
     <table>
@@ -137,75 +139,55 @@ Contact
             <td>Дата рождения</td>
             <td><input type="date" value="" name="person.birthday" id="person.birthday"></td>
         </tr>
-
-        <tr>
-            <td><input type="button" id="addAddress" value="Добавить адрес" /></td>
-        </tr>
-        <tr>
-            <td><input type="button" id="addEmail" value="Добавить email" /></td>
-        </tr>
-        <tr>
-            <td><input type="button" id="addPhone" value="Добавить телефон" /></td>
-        </tr>
-
-        <span id="writeroot"></span>
-        <span id="writeroot2"></span>
-        <span id="writeroot3"></span>
-
-        <tr>
-            <td><input type="submit" value="Сохранить"></td>
-        </tr>
     </table>
+    <br/>
+    <span id="writeroot"></span>
+    <br/>
+    <span id="writeroot2"></span>
+    <br/>
+    <span id="writeroot3"></span>
+    <br/>
+
+    <input type="button" id="addAddress" value="Добавить адрес" />
+    <input type="button" id="addEmail" value="Добавить email" />
+    <input type="button" id="addPhone" value="Добавить телефон" />
+
+    <br/><input type="submit" value="Сохранить">
+
 </form>
 
 <div id="readroot" style="display: none">
-    <tr>
-        <td>Адресс</td>
-        <td><input type="text" value="" name="addressList[0].addressValue" id="addressList[0].addressValue"></td>
-    </tr>
-    <tr>
-        <td>По умолчанию</td>
-        <td><input type="checkbox" value="true" name="addressList[0].addressDefault" id="addressList[0].addressDefault"></td>
-    </tr>
-    <tr>
-        <td><input type="button" value="Убрать" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" /></td>
-    </tr>
+
+    Адресс
+    <input type="text" value="" name="addressList[0].addressValue" id="addressList[0].addressValue">
+    По умолчанию
+    <input type="checkbox" value="true" name="addressList[0].addressDefault" id="addressList[0].addressDefault">
+    <input type="button" value="Убрать" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" />
+
 </div>
 
 <div id="readroot2" style="display: none">
-    <tr>
-        <td>Тип</td>
-        <td><input type="text" value="" name="emailList[0].emailType" id="emailList[0].emailType"></td>
-    </tr>
-    <tr>
-        <td>Email</td>
-        <td><input type="text" value="" name="emailList[0].emailValue" id="emailList[0].emailValue"></td>
-    </tr>
-    <tr>
-        <td>По умолчанию</td>
-        <td><input type="checkbox" value="true" name="emailList[0].emailDefault" id="emailList[0].emailDefault"></td>
-    </tr>
-    <tr>
-        <td><input type="button" value="Убрать" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" /></td>
-    </tr>
+
+    Email
+    <input type="text" value="" name="emailList[0].emailValue" id="emailList[0].emailValue">
+    Тип
+    <input type="text" value="" name="emailList[0].emailType" id="emailList[0].emailType">
+    По умолчанию
+    <input type="checkbox" value="true" name="emailList[0].emailDefault" id="emailList[0].emailDefault">
+    <input type="button" value="Убрать" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" />
+
 </div>
 
 <div id="readroot3" style="display: none">
-    <tr>
-        <td>Тип</td>
-        <td><input type="text" value="" name="phoneList[0].phoneType" id="phoneList[0].phoneType"></td>
-    </tr>
-    <tr>
-        <td>Номер</td>
-        <td><input type="text" value="" name="phoneList[0].phoneNumber" id="phoneList[0].phoneNumber"></td>
-    </tr>
-    <tr>
-        <td>По умолчанию</td>
-        <td><input type="checkbox" value="true" name="phoneList[0].phoneDefault" id="phoneList[0].phoneDefault"></td>
-    </tr>
-    <tr>
-        <td><input type="button" value="Убрать" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" /></td>
-    </tr>
+
+    Номер
+    <input type="text" value="" name="phoneList[0].phoneNumber" id="phoneList[0].phoneNumber">
+    Тип
+    <input type="text" value="" name="phoneList[0].phoneType" id="phoneList[0].phoneType">
+    По умолчанию
+    <input type="checkbox" value="true" name="phoneList[0].phoneDefault" id="phoneList[0].phoneDefault">
+    <input type="button" value="Убрать" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" />
+
 </div>
 
 </body>

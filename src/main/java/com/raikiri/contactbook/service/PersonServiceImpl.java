@@ -1,9 +1,7 @@
 package com.raikiri.contactbook.service;
 
 import com.raikiri.contactbook.dao.*;
-import com.raikiri.contactbook.domain.Address;
 import com.raikiri.contactbook.domain.Person;
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.util.List;

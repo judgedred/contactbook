@@ -3,7 +3,6 @@ package com.raikiri.contactbook.service;
 import com.raikiri.contactbook.dao.AddressDao;
 import com.raikiri.contactbook.dao.DaoException;
 import com.raikiri.contactbook.domain.Address;
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -81,5 +80,22 @@ public class AddressServiceImpl implements AddressService
             return false;
         }
         return true;
+    }
+
+    @Override
+    public Address getAddressDefault(int personId) throws DaoException
+    {
+        List<Address> addressList = addressDao.getAddressAll();
+        if(addressList != null)
+        {
+            for(Address a : addressList)
+            {
+                if(a.getPerson().getPersonId() == personId && a.getAddressDefault())
+                {
+                    return a;
+                }
+            }
+        }
+        return null;
     }
 }

@@ -3,7 +3,6 @@ package com.raikiri.contactbook.service;
 
 import com.raikiri.contactbook.dao.DaoException;
 import com.raikiri.contactbook.domain.Phone;
-
 import java.util.List;
 
 public interface PhoneService
@@ -14,4 +13,5 @@ public interface PhoneService
     public Phone getPhoneById(int id) throws DaoException;
     public List<Phone> getPhoneAllById(int personId) throws DaoException;
     public boolean phoneValidate(List<Phone> phoneList);
+    public Phone getPhoneDefault(int personId) throws DaoException;
 }

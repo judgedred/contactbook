@@ -1,16 +1,10 @@
 package com.raikiri.contactbook.domain;
 
 import com.raikiri.contactbook.web.DateAdapter;
-
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Date;
 
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "Person")
 public class Person
@@ -124,8 +118,4 @@ public class Person
         return personId.hashCode();
     }
 
-    public Person()
-    {
-
-    }
 }

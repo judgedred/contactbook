@@ -100,6 +100,15 @@ public class AddressDaoTest
         Assert.assertTrue(listTest.size() > 0);
     }
 
+    @Test
+    public void testGetAllById() throws DaoException
+    {
+        List<Address> listTest = addressDao.getAddressAllById(1);
+        Assert.assertNotNull(listTest);
+        Assert.assertTrue(listTest.size() > 0);
+        Assert.assertEquals(listTest.get(0).getAddressValue(), "userAddress");
+    }
+
     @After
     public void cleanUp() throws DaoException
     {

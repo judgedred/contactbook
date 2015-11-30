@@ -18,6 +18,7 @@ public class EmailDaoImpl implements EmailDao
     @Resource
     UserTransaction utx;
 
+    @Override
     public Email create(Email email) throws DaoException
     {
         try
@@ -33,6 +34,7 @@ public class EmailDaoImpl implements EmailDao
         }
     }
 
+    @Override
     public Email update(Email email) throws DaoException
     {
         try
@@ -48,6 +50,7 @@ public class EmailDaoImpl implements EmailDao
         }
     }
 
+    @Override
     public void delete(Email email) throws DaoException
     {
         try
@@ -63,6 +66,7 @@ public class EmailDaoImpl implements EmailDao
         }
     }
 
+    @Override
     public List<Email> getEmailAll() throws DaoException
     {
         try
@@ -77,6 +81,7 @@ public class EmailDaoImpl implements EmailDao
         }
     }
 
+    @Override
     public Email getEmailById(int id) throws DaoException
     {
         try

@@ -5,7 +5,13 @@ import javax.annotation.Resource;
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
+import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.Metamodel;
 import javax.transaction.UserTransaction;
 import java.util.List;
 
@@ -19,6 +25,7 @@ public class AddressDaoImpl implements AddressDao
     @Resource
     UserTransaction utx;
 
+    @Override
     public Address create(Address address) throws DaoException
     {
         try
@@ -34,6 +41,7 @@ public class AddressDaoImpl implements AddressDao
         }
     }
 
+    @Override
     public Address update(Address address) throws DaoException
     {
         try
@@ -49,6 +57,7 @@ public class AddressDaoImpl implements AddressDao
         }
     }
 
+    @Override
     public void delete(Address address) throws DaoException
     {
         try
@@ -64,6 +73,7 @@ public class AddressDaoImpl implements AddressDao
         }
     }
 
+    @Override
     public List<Address> getAddressAll() throws DaoException
     {
         try
@@ -78,6 +88,25 @@ public class AddressDaoImpl implements AddressDao
         }
     }
 
+    @Override
+    public List<Address> getAddressAllById(int personId) throws DaoException
+    {
+        try
+        {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Address> cq = cb.createQuery(Address.class);
+            Root<Address> root = cq.from(Address.class);
+            ParameterExpression<Integer> personIdParam = cb.parameter(Integer.class);
+            cq.select(root).where(cb.equal(root.get("person"), personIdParam));
+            return em.createQuery(cq).setParameter(personIdParam, personId).getResultList();
+        }
+        catch(Exception e)
+        {
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
     public Address getAddressById(int id) throws DaoException
     {
         try

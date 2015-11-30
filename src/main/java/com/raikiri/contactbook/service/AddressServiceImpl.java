@@ -41,23 +41,7 @@ public class AddressServiceImpl implements AddressService
     @Override
     public List<Address> getAddressAllById(int personId) throws DaoException
     {
-        List<Address> addressList = addressDao.getAddressAll();
-        List<Address> filteredAddressList = new ArrayList<>();
-        if(addressList != null)
-        {
-            for(Address a : addressList)
-            {
-                if(a.getPerson().getPersonId() == personId)
-                {
-                    filteredAddressList.add(a);
-                }
-            }
-            return filteredAddressList;
-        }
-        else
-        {
-            return null;
-        }
+        return addressDao.getAddressAllById(personId);
     }
 
     @Override

@@ -18,6 +18,7 @@ public class PhoneDaoImpl implements PhoneDao
     @Resource
     UserTransaction utx;
 
+    @Override
     public Phone create(Phone phone) throws DaoException
     {
         try
@@ -33,6 +34,7 @@ public class PhoneDaoImpl implements PhoneDao
         }
     }
 
+    @Override
     public Phone update(Phone phone) throws DaoException
     {
         try
@@ -48,6 +50,7 @@ public class PhoneDaoImpl implements PhoneDao
         }
     }
 
+    @Override
     public void delete(Phone phone) throws DaoException
     {
         try
@@ -63,6 +66,7 @@ public class PhoneDaoImpl implements PhoneDao
         }
     }
 
+    @Override
     public List<Phone> getPhoneAll() throws DaoException
     {
         try
@@ -77,6 +81,7 @@ public class PhoneDaoImpl implements PhoneDao
         }
     }
 
+    @Override
     public Phone getPhoneById(int id) throws DaoException
     {
         try

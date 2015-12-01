@@ -7,13 +7,9 @@ import javax.annotation.Resource;
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
-import javax.persistence.metamodel.EntityType;
-import javax.persistence.metamodel.Metamodel;
 import javax.transaction.UserTransaction;
 import java.util.List;
 
@@ -100,6 +96,29 @@ public class AddressDaoImpl implements AddressDao
             Root<Address> root = cq.from(Address.class);
             cq.select(root).where(cb.equal(root.get("person"), person));
             return em.createQuery(cq).getResultList();
+        }
+        catch(Exception e)
+        {
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
+    public Address getAddressDefault(Person person) throws DaoException
+    {
+        try
+        {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Address> cq = cb.createQuery(Address.class);
+            Root<Address> root = cq.from(Address.class);
+            cq.select(root).where(cb.and(cb.equal(root.get("person"), person), cb.isTrue(root.get("addressDefault"))));
+            List<Address> resultList = em.createQuery(cq).getResultList();
+            Address address = null;
+            if(resultList.size() == 1)
+            {
+                address = resultList.get(0);
+            }
+            return address;
         }
         catch(Exception e)
         {

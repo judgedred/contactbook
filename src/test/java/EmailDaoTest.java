@@ -108,6 +108,25 @@ public class EmailDaoTest
         Assert.assertTrue(listTest.size() > 0);
     }
 
+    @Test
+    public void testGetPersonEmailAll() throws DaoException
+    {
+        Person person = personDao.getPersonById(1);
+        List<Email> listTest = emailDao.getPersonEmailAll(person);
+        Assert.assertNotNull(listTest);
+        Assert.assertTrue(listTest.size() == 1);
+        Assert.assertEquals(listTest.get(0).getEmailValue(), "userEmail");
+    }
+
+    @Test
+    public void testGetEmailDefault() throws DaoException
+    {
+        Person person = personDao.getPersonById(1);
+        Email emailTest = emailDao.getEmailDefault(person);
+        Assert.assertNotNull(emailTest);
+        Assert.assertTrue(emailTest.getEmailDefault());
+    }
+
     @After
     public void cleanUp() throws DaoException
     {

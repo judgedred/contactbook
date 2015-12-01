@@ -7,7 +7,6 @@ import com.raikiri.contactbook.domain.Person;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.List;
 
 @RequestScoped
@@ -29,38 +28,9 @@ public class EmailServiceImpl implements EmailService
     }
 
     @Override
-    public List<Email> getEmailAll() throws DaoException
-    {
-        return emailDao.getEmailAll();
-    }
-
-    @Override
-    public Email getEmailById(int id) throws DaoException
-    {
-        return emailDao.getEmailById(id);
-    }
-
-    @Override
     public List<Email> getPersonEmailAll(Person person) throws DaoException
     {
-        /*List<Email> emailList = emailDao.getEmailAll();
-        List<Email> filteredEmailList = new ArrayList<>();
-        if(emailList != null)
-        {
-            for(Email e : emailList)
-            {
-                if(e.getPerson().getPersonId() == personId)
-                {
-                    filteredEmailList.add(e);
-                }
-            }
-            return filteredEmailList;
-        }
-        else
-        {
-            return null;
-        }*/
-        return null;
+        return emailDao.getPersonEmailAll(person);
     }
 
     @Override
@@ -86,19 +56,8 @@ public class EmailServiceImpl implements EmailService
     }
 
     @Override
-    public Email getEmailDefault(int personId) throws DaoException
+    public Email getEmailDefault(Person person) throws DaoException
     {
-        List<Email> emailList = emailDao.getEmailAll();
-        if(emailList != null)
-        {
-            for(Email e : emailList)
-            {
-                if(e.getPerson().getPersonId() == personId && e.getEmailDefault())
-                {
-                    return e;
-                }
-            }
-        }
-        return null;
+        return emailDao.getEmailDefault(person);
     }
 }

@@ -103,11 +103,20 @@ public class AddressDaoTest
     @Test
     public void testGetPersonAddressAll() throws DaoException
     {
-        Person person = personDao.getPersonById(9);
+        Person person = personDao.getPersonById(1);
         List<Address> listTest = addressDao.getPersonAddressAll(person);
-        Assert.assertNull(listTest);
-//        Assert.assertTrue(listTest.size() == 1);
-//        Assert.assertEquals(listTest.get(0).getAddressValue(), "userAddress");
+        Assert.assertNotNull(listTest);
+        Assert.assertTrue(listTest.size() == 1);
+        Assert.assertEquals(listTest.get(0).getAddressValue(), "userAddress");
+    }
+
+    @Test
+    public void testGetAddressDefault() throws DaoException
+    {
+        Person person = personDao.getPersonById(1);
+        Address addressTest = addressDao.getAddressDefault(person);
+        Assert.assertNotNull(addressTest);
+        Assert.assertTrue(addressTest.getAddressDefault());
     }
 
     @After

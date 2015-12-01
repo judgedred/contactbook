@@ -108,6 +108,25 @@ public class PhoneDaoTest
         Assert.assertTrue(listTest.size() > 0);
     }
 
+    @Test
+    public void testGetPersonPhoneAll() throws DaoException
+    {
+        Person person = personDao.getPersonById(1);
+        List<Phone> listTest = phoneDao.getPersonPhoneAll(person);
+        Assert.assertNotNull(listTest);
+        Assert.assertTrue(listTest.size() == 1);
+        Assert.assertEquals((long)listTest.get(0).getPhoneNumber(), 4443232);
+    }
+
+    @Test
+    public void testGetPhoneDefault() throws DaoException
+    {
+        Person person = personDao.getPersonById(1);
+        Phone phoneTest = phoneDao.getPhoneDefault(person);
+        Assert.assertNotNull(phoneTest);
+        Assert.assertTrue(phoneTest.getPhoneDefault());
+    }
+
     @After
     public void cleanUp() throws DaoException
     {

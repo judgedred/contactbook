@@ -72,9 +72,9 @@ public class PersonDaoImpl implements PersonDao
     {
         try
         {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+            CriteriaQuery<Person> cq = em.getCriteriaBuilder().createQuery(Person.class);
             cq.select(cq.from(Person.class));
-            return (List<Person>) em.createQuery(cq).getResultList();
+            return em.createQuery(cq).getResultList();
         }
         catch(Exception e)
         {

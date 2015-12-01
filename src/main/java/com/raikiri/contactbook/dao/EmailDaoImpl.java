@@ -103,6 +103,29 @@ public class EmailDaoImpl implements EmailDao
     }
 
     @Override
+    public Email getEmailDefault(Person person) throws DaoException
+    {
+        try
+        {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Email> cq = cb.createQuery(Email.class);
+            Root<Email> root = cq.from(Email.class);
+            cq.select(root).where(cb.and(cb.equal(root.get("person"), person)), cb.isTrue(root.get("emailDefault")));
+            List<Email> resultList = em.createQuery(cq).getResultList();
+            Email email = null;
+            if(resultList.size() == 1)
+            {
+                email = resultList.get(0);
+            }
+            return email;
+        }
+        catch(Exception e)
+        {
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
     public Email getEmailById(int id) throws DaoException
     {
         try

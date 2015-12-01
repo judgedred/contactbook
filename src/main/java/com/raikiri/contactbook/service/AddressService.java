@@ -11,9 +11,7 @@ public interface AddressService
 {
     public Address create(Address address) throws DaoException;
     public Address update(Address address) throws DaoException;
-    public List<Address> getAddressAll() throws DaoException;
-    public Address getAddressById(int id) throws DaoException;
     public List<Address> getPersonAddressAll(Person person) throws DaoException;
     public boolean addressValidate(List<Address> addressList);
-    public Address getAddressDefault(int personId) throws DaoException;
+    public Address getAddressDefault(Person person) throws DaoException;
 }

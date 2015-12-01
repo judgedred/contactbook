@@ -13,5 +13,6 @@ public interface EmailDao
     public void delete(Email email) throws DaoException;
     public List<Email> getEmailAll() throws DaoException;
     public List<Email> getPersonEmailAll(Person person) throws DaoException;
+    public Email getEmailDefault(Person person) throws DaoException;
     public Email getEmailById(int id) throws DaoException;
 }

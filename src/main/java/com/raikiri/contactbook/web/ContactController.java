@@ -55,17 +55,17 @@ public class ContactController
         {
             ContactWrapperDefault contactWrapperDefault = new ContactWrapperDefault();
             contactWrapperDefault.setPerson(p);
-            Address address = addressService.getAddressDefault(p.getPersonId());
+            Address address = addressService.getAddressDefault(p);
             if(address != null)
             {
                 contactWrapperDefault.setDefaultAddress(address);
             }
-            Email email = emailService.getEmailDefault(p.getPersonId());
+            Email email = emailService.getEmailDefault(p);
             if(email != null)
             {
                 contactWrapperDefault.setDefaultEmail(email);
             }
-            Phone phone = phoneService.getPhoneDefault(p.getPersonId());
+            Phone phone = phoneService.getPhoneDefault(p);
             if(phone != null)
             {
                 contactWrapperDefault.setDefaultPhone(phone);
@@ -135,8 +135,8 @@ public class ContactController
             if(person != null)
             {
                 List<Address> addressList = addressService.getPersonAddressAll(person);
-                List<Email> emailList = emailService.getEmailAllById(personId);
-                List<Phone> phoneList = phoneService.getPhoneAllById(personId);
+                List<Email> emailList = emailService.getPersonEmailAll(person);
+                List<Phone> phoneList = phoneService.getPersonPhoneAll(person);
                 ContactWrapper contactWrapper = new ContactWrapper();
                 contactWrapper.setPerson(person);
                 contactWrapper.setAddressList(addressList);
@@ -216,7 +216,7 @@ public class ContactController
                     }
                     if(emailList != null)
                     {
-                        List<Email> emailPersonList = emailService.getEmailAllById(personUpdated.getPersonId());
+                        List<Email> emailPersonList = emailService.getPersonEmailAll(personUpdated);
                         for(Email e : emailList)
                         {
                             boolean emailUpdated = false;
@@ -239,7 +239,7 @@ public class ContactController
                     }
                     if(phoneList != null)
                     {
-                        List<Phone> phonePersonList = phoneService.getPhoneAllById(personUpdated.getPersonId());
+                        List<Phone> phonePersonList = phoneService.getPersonPhoneAll(personUpdated);
                         for(Phone p : phoneList)
                         {
                             boolean phoneUpdated = false;
@@ -262,8 +262,8 @@ public class ContactController
                     }
                     contactWrapper.setPerson(personUpdated);
                     contactWrapper.setAddressList(addressService.getPersonAddressAll(personUpdated));
-                    contactWrapper.setEmailList(emailService.getEmailAllById(personUpdated.getPersonId()));
-                    contactWrapper.setPhoneList(phoneService.getPhoneAllById(personUpdated.getPersonId()));
+                    contactWrapper.setEmailList(emailService.getPersonEmailAll(personUpdated));
+                    contactWrapper.setPhoneList(phoneService.getPersonPhoneAll(personUpdated));
                 }
                 else
                 {
@@ -294,8 +294,8 @@ public class ContactController
                     }
                     contactWrapper.setPerson(personCreated);
                     contactWrapper.setAddressList(addressService.getPersonAddressAll(personCreated));
-                    contactWrapper.setEmailList(emailService.getEmailAllById(personCreated.getPersonId()));
-                    contactWrapper.setPhoneList(phoneService.getPhoneAllById(personCreated.getPersonId()));
+                    contactWrapper.setEmailList(emailService.getPersonEmailAll(personCreated));
+                    contactWrapper.setPhoneList(phoneService.getPersonPhoneAll(personCreated));
                 }
                 return contactWrapper;
             }

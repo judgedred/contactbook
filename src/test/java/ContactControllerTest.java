@@ -73,10 +73,6 @@ public class ContactControllerTest
         Assert.assertEquals(personExpected.getPersonName(), personResult.getPersonSurname());
         Assert.assertEquals(personExpected.getPersonPatronymic(), personResult.getPersonPatronymic());
         Assert.assertEquals(birthdayExpected, birthdayResult);
-
-
-
-
     }
 
     @Test

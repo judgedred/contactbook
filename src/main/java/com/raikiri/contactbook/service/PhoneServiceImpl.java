@@ -2,10 +2,10 @@ package com.raikiri.contactbook.service;
 
 import com.raikiri.contactbook.dao.DaoException;
 import com.raikiri.contactbook.dao.PhoneDao;
+import com.raikiri.contactbook.domain.Person;
 import com.raikiri.contactbook.domain.Phone;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.List;
 
 @RequestScoped
@@ -27,37 +27,9 @@ public class PhoneServiceImpl implements PhoneService
     }
 
     @Override
-    public List<Phone> getPhoneAll() throws DaoException
+    public List<Phone> getPersonPhoneAll(Person person) throws DaoException
     {
-        return phoneDao.getPhoneAll();
-    }
-
-    @Override
-    public Phone getPhoneById(int id) throws DaoException
-    {
-        return phoneDao.getPhoneById(id);
-    }
-
-    @Override
-    public List<Phone> getPhoneAllById(int personId) throws DaoException
-    {
-        List<Phone> phoneList = phoneDao.getPhoneAll();
-        List<Phone> filteredPhoneList = new ArrayList<>();
-        if(phoneList != null)
-        {
-            for(Phone p : phoneList)
-            {
-                if(p.getPerson().getPersonId() == personId)
-                {
-                    filteredPhoneList.add(p);
-                }
-            }
-            return filteredPhoneList;
-        }
-        else
-        {
-            return null;
-        }
+        return phoneDao.getPersonPhoneAll(person);
     }
 
     @Override
@@ -83,19 +55,8 @@ public class PhoneServiceImpl implements PhoneService
     }
 
     @Override
-    public Phone getPhoneDefault(int personId) throws DaoException
+    public Phone getPhoneDefault(Person person) throws DaoException
     {
-        List<Phone> phoneList = phoneDao.getPhoneAll();
-        if(phoneList != null)
-        {
-            for(Phone p : phoneList)
-            {
-                if(p.getPerson().getPersonId() == personId && p.getPhoneDefault())
-                {
-                    return p;
-                }
-            }
-        }
-        return null;
+        return phoneDao.getPhoneDefault(person);
     }
 }

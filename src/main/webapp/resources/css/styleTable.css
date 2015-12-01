@@ -1,5 +1,3 @@
-/* "Winter Blues" CSS theme for CSS Table Gallery (http://icant.co.uk/csstablegallery/) by Gunta Klavina (http://www.klavina.com) */
-
 table {font: 85% "Lucida Grande", "Lucida Sans Unicode", "Trebuchet MS", sans-serif;padding: 0; margin: 0; border-collapse: collapse; color: #333; background: #F3F5F7;}
 
 table a {color: #3A4856; text-decoration: none; border-bottom: 1px solid #C6C8CB;}
@@ -16,7 +14,7 @@ table tbody, table thead {border-left: 1px solid #EAECEE; border-right: 1px soli
 
 table tbody {border-bottom: 1px solid #EAECEE;}
 
-table tbody td, table tbody th {padding: 10px; background: url("td_back.gif") repeat-x; text-align: left;}
+table tbody td, table tbody th {padding: 10px;) repeat-x; text-align: left;}
 
 table tbody tr {background: #F3F5F7;}
 

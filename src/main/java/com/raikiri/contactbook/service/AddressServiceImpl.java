@@ -7,7 +7,6 @@ import com.raikiri.contactbook.domain.Person;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.List;
 
 @RequestScoped
@@ -26,18 +25,6 @@ public class AddressServiceImpl implements AddressService
     public Address update(Address address) throws DaoException
     {
         return addressDao.update(address);
-    }
-
-    @Override
-    public List<Address> getAddressAll() throws DaoException
-    {
-        return addressDao.getAddressAll();
-    }
-
-    @Override
-    public Address getAddressById(int id) throws DaoException
-    {
-        return addressDao.getAddressById(id);
     }
 
     @Override
@@ -69,19 +56,8 @@ public class AddressServiceImpl implements AddressService
     }
 
     @Override
-    public Address getAddressDefault(int personId) throws DaoException
+    public Address getAddressDefault(Person person) throws DaoException
     {
-        List<Address> addressList = addressDao.getAddressAll();
-        if(addressList != null)
-        {
-            for(Address a : addressList)
-            {
-                if(a.getPerson().getPersonId() == personId && a.getAddressDefault())
-                {
-                    return a;
-                }
-            }
-        }
-        return null;
+        return addressDao.getAddressDefault(person);
     }
 }

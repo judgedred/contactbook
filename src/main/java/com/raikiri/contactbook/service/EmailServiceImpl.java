@@ -3,6 +3,8 @@ package com.raikiri.contactbook.service;
 import com.raikiri.contactbook.dao.DaoException;
 import com.raikiri.contactbook.dao.EmailDao;
 import com.raikiri.contactbook.domain.Email;
+import com.raikiri.contactbook.domain.Person;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -39,9 +41,9 @@ public class EmailServiceImpl implements EmailService
     }
 
     @Override
-    public List<Email> getEmailAllById(int personId) throws DaoException
+    public List<Email> getPersonEmailAll(Person person) throws DaoException
     {
-        List<Email> emailList = emailDao.getEmailAll();
+        /*List<Email> emailList = emailDao.getEmailAll();
         List<Email> filteredEmailList = new ArrayList<>();
         if(emailList != null)
         {
@@ -57,7 +59,8 @@ public class EmailServiceImpl implements EmailService
         else
         {
             return null;
-        }
+        }*/
+        return null;
     }
 
     @Override

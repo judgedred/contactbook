@@ -1,11 +1,15 @@
 package com.raikiri.contactbook.dao;
 
 import com.raikiri.contactbook.domain.Email;
+import com.raikiri.contactbook.domain.Person;
+
 import javax.annotation.Resource;
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.transaction.UserTransaction;
 import java.util.List;
 
@@ -71,9 +75,26 @@ public class EmailDaoImpl implements EmailDao
     {
         try
         {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+            CriteriaQuery<Email> cq = em.getCriteriaBuilder().createQuery(Email.class);
             cq.select(cq.from(Email.class));
-            return (List<Email>) em.createQuery(cq).getResultList();
+            return em.createQuery(cq).getResultList();
+        }
+        catch(Exception e)
+        {
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
+    public List<Email> getPersonEmailAll(Person person) throws DaoException
+    {
+        try
+        {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Email> cq = cb.createQuery(Email.class);
+            Root<Email> root = cq.from(Email.class);
+            cq.select(root).where(cb.equal(root.get("person"), person));
+            return em.createQuery(cq).getResultList();
         }
         catch(Exception e)
         {

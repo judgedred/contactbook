@@ -1,6 +1,8 @@
 package com.raikiri.contactbook.dao;
 
 import com.raikiri.contactbook.domain.Address;
+import com.raikiri.contactbook.domain.Person;
+
 import javax.annotation.Resource;
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
@@ -78,9 +80,9 @@ public class AddressDaoImpl implements AddressDao
     {
         try
         {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+            CriteriaQuery<Address> cq = em.getCriteriaBuilder().createQuery(Address.class);
             cq.select(cq.from(Address.class));
-            return (List<Address>) em.createQuery(cq).getResultList();
+            return em.createQuery(cq).getResultList();
         }
         catch(Exception e)
         {
@@ -89,16 +91,15 @@ public class AddressDaoImpl implements AddressDao
     }
 
     @Override
-    public List<Address> getAddressAllById(int personId) throws DaoException
+    public List<Address> getPersonAddressAll(Person person) throws DaoException
     {
         try
         {
             CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<Address> cq = cb.createQuery(Address.class);
             Root<Address> root = cq.from(Address.class);
-            ParameterExpression<Integer> personIdParam = cb.parameter(Integer.class);
-            cq.select(root).where(cb.equal(root.get("person"), personIdParam));
-            return em.createQuery(cq).setParameter(personIdParam, personId).getResultList();
+            cq.select(root).where(cb.equal(root.get("person"), person));
+            return em.createQuery(cq).getResultList();
         }
         catch(Exception e)
         {

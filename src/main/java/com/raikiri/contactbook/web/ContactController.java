@@ -134,7 +134,7 @@ public class ContactController
             Person person = personService.getPersonById(personId);
             if(person != null)
             {
-                List<Address> addressList = addressService.getAddressAllById(personId);
+                List<Address> addressList = addressService.getPersonAddressAll(person);
                 List<Email> emailList = emailService.getEmailAllById(personId);
                 List<Phone> phoneList = phoneService.getPhoneAllById(personId);
                 ContactWrapper contactWrapper = new ContactWrapper();
@@ -194,7 +194,7 @@ public class ContactController
                     Person personUpdated = personService.update(person);
                     if(addressList != null)
                     {
-                        List<Address> addressPersonList = addressService.getAddressAllById(personUpdated.getPersonId());
+                        List<Address> addressPersonList = addressService.getPersonAddressAll(personUpdated);
                         for(Address a : addressList)
                         {
                             boolean addressUpdated = false;
@@ -261,7 +261,7 @@ public class ContactController
                         }
                     }
                     contactWrapper.setPerson(personUpdated);
-                    contactWrapper.setAddressList(addressService.getAddressAllById(personUpdated.getPersonId()));
+                    contactWrapper.setAddressList(addressService.getPersonAddressAll(personUpdated));
                     contactWrapper.setEmailList(emailService.getEmailAllById(personUpdated.getPersonId()));
                     contactWrapper.setPhoneList(phoneService.getPhoneAllById(personUpdated.getPersonId()));
                 }
@@ -293,7 +293,7 @@ public class ContactController
                         }
                     }
                     contactWrapper.setPerson(personCreated);
-                    contactWrapper.setAddressList(addressService.getAddressAllById(personCreated.getPersonId()));
+                    contactWrapper.setAddressList(addressService.getPersonAddressAll(personCreated));
                     contactWrapper.setEmailList(emailService.getEmailAllById(personCreated.getPersonId()));
                     contactWrapper.setPhoneList(phoneService.getPhoneAllById(personCreated.getPersonId()));
                 }

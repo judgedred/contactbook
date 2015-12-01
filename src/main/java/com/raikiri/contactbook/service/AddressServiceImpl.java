@@ -3,6 +3,8 @@ package com.raikiri.contactbook.service;
 import com.raikiri.contactbook.dao.AddressDao;
 import com.raikiri.contactbook.dao.DaoException;
 import com.raikiri.contactbook.domain.Address;
+import com.raikiri.contactbook.domain.Person;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -39,9 +41,9 @@ public class AddressServiceImpl implements AddressService
     }
 
     @Override
-    public List<Address> getAddressAllById(int personId) throws DaoException
+    public List<Address> getPersonAddressAll(Person person) throws DaoException
     {
-        return addressDao.getAddressAllById(personId);
+        return addressDao.getPersonAddressAll(person);
     }
 
     @Override
